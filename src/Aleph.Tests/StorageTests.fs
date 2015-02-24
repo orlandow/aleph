@@ -18,14 +18,14 @@ store.Initialize() |> ignore
 
 let stores (obj:'a) =
     use session = store.OpenSession()
-    session.Store(obj, "id")
+    session.Store(obj)
     session.SaveChanges()
+    let id = session.Advanced.GetDocumentId(obj)
 
     use session = store.OpenSession()
-    let loaded = session.Load<'a>("id")
+    let loaded = session.Load<'a>(id)
 
     Assert.AreEqual(obj, loaded)
-
 
 [<Test>]
 let ``can store geography types`` () =
