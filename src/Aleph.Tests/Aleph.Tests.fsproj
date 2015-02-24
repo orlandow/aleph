@@ -79,6 +79,11 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Aleph.Data\Aleph.Data.fsproj">
+      <Name>Aleph.Data</Name>
+      <Project>{eceabedc-485c-46b1-868e-568460c31f03}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Aleph.Domain\Aleph.Domain.fsproj">
       <Name>Aleph.Domain</Name>
       <Project>{999c9b78-a71c-47e8-8dc0-933712ad103d}</Project>
