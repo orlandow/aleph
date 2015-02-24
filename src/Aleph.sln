@@ -7,6 +7,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Aleph.Domain", "Aleph.Domai
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Aleph.Data", "Aleph.Data\Aleph.Data.fsproj", "{ECEABEDC-485C-46B1-868E-568460C31F03}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Aleph.Tests", "Aleph.Tests\Aleph.Tests.fsproj", "{35BDE68A-61F9-4B71-BDBF-257CA094F7D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{ECEABEDC-485C-46B1-868E-568460C31F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECEABEDC-485C-46B1-868E-568460C31F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECEABEDC-485C-46B1-868E-568460C31F03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35BDE68A-61F9-4B71-BDBF-257CA094F7D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35BDE68A-61F9-4B71-BDBF-257CA094F7D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35BDE68A-61F9-4B71-BDBF-257CA094F7D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35BDE68A-61F9-4B71-BDBF-257CA094F7D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
