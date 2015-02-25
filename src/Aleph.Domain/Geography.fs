@@ -10,7 +10,6 @@ type Continent =
     | Antarctica
 
 type Country = {
-    id: Id
     name: string
     continent: Continent
 }

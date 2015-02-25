@@ -1,4 +1,4 @@
-﻿module SerializationTests
+﻿module RavenExploratoryTests
 
 open NUnit.Framework
 open Raven.Client.Embedded
@@ -29,9 +29,23 @@ let stores (obj:'a) =
 
 [<Test>]
 let ``can store geography types`` () =
-    let cuba = { id = "countries/1"; name = "Cuba"; continent = America }
+    let cuba = { name = "Cuba"; continent = America }
 
     stores cuba
     stores Africa
     stores { id = "cities/1"; name = "Havana"; country = cuba }
     stores <| CountryRegion cuba
+
+[<Test>]
+let ``documents have ids even when there is no id on record`` () =
+    let c name = { name = name; continent = America }
+    let cs = [1..10] |> List.map (fun i -> c <| sprintf "country%i" i) 
+
+    use session = store.OpenSession()
+    cs |> Seq.iter (session.Store)
+    session.SaveChanges()
+
+    let ids = cs |> Seq.map (session.Advanced.GetDocumentId)
+
+    Assert.That(ids |> Seq.pairwise |> Seq.forall (fun (x,y) -> x <> y), 
+        sprintf "same ids: %A" ids)
