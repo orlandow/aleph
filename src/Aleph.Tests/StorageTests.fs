@@ -29,9 +29,9 @@ let stores (obj:'a) =
 
 [<Test>]
 let ``can store geography types`` () =
-    let cuba = { id = Guid.NewGuid(); name = "Cuba"; continent = America }
+    let cuba = { id = "countries/1"; name = "Cuba"; continent = America }
 
     stores cuba
     stores Africa
-    stores { id = Guid.NewGuid(); name = "Havana"; country = cuba }
+    stores { id = "cities/1"; name = "Havana"; country = cuba }
     stores <| CountryRegion cuba
