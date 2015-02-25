@@ -49,3 +49,19 @@ let ``documents have ids even when there is no id on record`` () =
 
     Assert.That(ids |> Seq.pairwise |> Seq.forall (fun (x,y) -> x <> y), 
         sprintf "same ids: %A" ids)
+
+[<Test>]
+let ``can get ids for some documents`` () =
+    let a = { name = "A"; continent = America }
+    let b = { name = "B"; continent = America }
+
+    use session = store.OpenSession()
+    session.Store(a)
+    session.Store(b)
+    session.SaveChanges()
+
+    let cs = session.Query<Country>()
+    let ids = cs |> Seq.map (session.Advanced.GetDocumentId)
+
+    Assert.That(ids |> Seq.pairwise |> Seq.forall (fun (x,y) -> x <> y), 
+        sprintf "same ids: %A" ids)
