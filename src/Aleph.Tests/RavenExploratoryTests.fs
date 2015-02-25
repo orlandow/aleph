@@ -33,7 +33,7 @@ let ``can store geography types`` () =
 
     stores cuba
     stores Africa
-    stores { id = "cities/1"; name = "Havana"; country = cuba }
+    stores { name = "Havana"; country = cuba }
     stores <| CountryRegion cuba
 
 [<Test>]

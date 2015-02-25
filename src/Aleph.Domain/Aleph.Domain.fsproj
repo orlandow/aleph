@@ -42,7 +42,6 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common.fs" />
     <Compile Include="Geography.fs" />
   </ItemGroup>
   <PropertyGroup>

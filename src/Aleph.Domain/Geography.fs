@@ -15,7 +15,6 @@ type Country = {
 }
 
 type City = {
-    id: Id
     name: string
     country: Country
 }
