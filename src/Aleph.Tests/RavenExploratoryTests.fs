@@ -5,6 +5,7 @@ open Raven.Client.Embedded
 open Geography
 open System
 open Aleph.Data.Converters
+open People
 
 let store = new EmbeddableDocumentStore(RunInMemory = true)
 store.Conventions.CustomizeJsonSerializer <-
@@ -61,3 +62,14 @@ let ``can get ids for some documents`` () =
 
     Assert.That(ids |> Seq.pairwise |> Seq.forall (fun (x,y) -> x <> y), 
         sprintf "same ids: %A" ids)
+
+[<Test>]
+let ``can store people`` () =
+    let p = { 
+        name = "Borges"
+        fullName = "Jorge Luis Borges"
+        lifespan = Dead (DayDate (24, August, Year 1899), DayDate (14, June, Year 1986))
+        country = { name = "Argentina"; continent = America }
+    }
+
+    stores p
