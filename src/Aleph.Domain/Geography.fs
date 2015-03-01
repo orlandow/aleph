@@ -13,14 +13,3 @@ type Country = {
     name: string
     continent: Continent
 }
-
-type City = {
-    name: string
-    country: Country
-}
-
-type Region =
-    | CityRegion of City
-    | CountryRegion of Country
-    | ContinentRegion of Continent
-    | UnknownRegion

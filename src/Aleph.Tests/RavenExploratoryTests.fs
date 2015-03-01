@@ -29,12 +29,8 @@ let stores (obj:'a) =
 
 [<Test>]
 let ``can store geography types`` () =
-    let cuba = { name = "Cuba"; continent = America }
-
-    stores cuba
+    stores { name = "Cuba"; continent = America }
     stores Africa
-    stores { name = "Havana"; country = cuba }
-    stores <| CountryRegion cuba
 
 [<Test>]
 let ``documents have ids even when there is no id on record`` () =
