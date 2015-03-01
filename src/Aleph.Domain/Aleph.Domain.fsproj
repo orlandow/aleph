@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Geography.fs" />
     <Compile Include="Time.fs" />
+    <Compile Include="People.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
