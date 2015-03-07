@@ -70,6 +70,7 @@ let ``can store people`` () =
         fullName = "Jorge Luis Borges"
         lifespan = Dead (DayDate (24, August, Year 1899), DayDate (14, June, Year 1986))
         country = { name = "Argentina"; continent = America }
+        profession = "Writer"
     }
 
     stores p
