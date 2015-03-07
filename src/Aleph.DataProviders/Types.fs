@@ -9,9 +9,17 @@ type Suggestions = {
     fullname: string option
     lifespan: Lifespan option
     profession: Profession option
-    images: Image option
+    images: Image list option
 
     raw: string option
 }
+with 
+    static member Nothing = 
+        { name = None
+          fullname = None
+          lifespan = None
+          profession = None
+          images = None
+          raw = None }
 
 type Provider = string -> Suggestions

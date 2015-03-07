@@ -49,9 +49,11 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
+    <Content Include="packages.config" />
     <Compile Include="Types.fs" />
     <Compile Include="LocalProvider.fs" />
-    <Content Include="packages.config" />
+    <Compile Include="BingImagesProvider.fs" />
+    <Compile Include="Providers.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -64,6 +66,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Numerics" />
     <ProjectReference Include="..\Aleph.Domain\Aleph.Domain.fsproj">
       <Name>Aleph.Domain</Name>
