@@ -45,11 +45,13 @@ module LocalProvider =
         let profession = input |> get "profession"
         let fullname = basic |> get "full name"
 
-        {
-            name = name
-            fullname = fullname
-            profession = profession
-            lifespan = None
-            images = None
-            raw = None
+        async {
+            return {
+                name = name
+                fullname = fullname
+                profession = profession
+                lifespan = None
+                images = None
+                raw = None
+            }
         }

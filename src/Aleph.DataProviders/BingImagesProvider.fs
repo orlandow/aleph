@@ -16,8 +16,11 @@ module private BingApi =
         use handler = new HttpClientHandler(Credentials = new NetworkCredential(api, api))
         use client = new HttpClient(handler)
         let url = sprintf "https://api.datamarket.azure.com/Bing/Search/Image?$top=5&$format=json&Query=%%27%s%%27" search
-        let response = client.GetAsync(url).Result
-        response.Content.ReadAsStringAsync().Result
+
+        async {
+            let! response = Async.AwaitTask(client.GetAsync(url))
+            return! Async.AwaitTask(response.Content.ReadAsStringAsync())
+        }
 
     let parse str = 
         JsonConvert.DeserializeObject<Response>(str)
@@ -30,12 +33,12 @@ module private BingApi =
 
 module BingImageProvider =
     
-    let suggest str =
+    let suggest str = async {
+        let! content = str |> BingApi.get 
         let imgs = 
-            str 
-            |> BingApi.get 
+            content 
             |> BingApi.parse 
             |> Seq.map BingApi.getImg
             |> Seq.toList
 
-        { Suggestions.Nothing with images = Some imgs }
+        return { Suggestions.Nothing with images = Some imgs }}

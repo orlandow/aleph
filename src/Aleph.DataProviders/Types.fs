@@ -22,4 +22,4 @@ with
           images = None
           raw = None }
 
-type Provider = string -> Suggestions
+type Provider = string -> Async<Suggestions>
