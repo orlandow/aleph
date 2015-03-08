@@ -47,6 +47,13 @@
     <Compile Include="People.fs" />
     <Compile Include="Parser.fs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Misc\Misc.fsproj">
+      <Name>Misc</Name>
+      <Project>{2a2f3b5f-dff0-4ee3-8438-551b732c12e8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
