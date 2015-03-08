@@ -50,8 +50,9 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="MiscTests.fs" />
-    <Content Include="packages.config" />
     <Compile Include="RavenExploratoryTests.fs" />
+    <Compile Include="DateParsingTests.fs" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

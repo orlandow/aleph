@@ -17,17 +17,14 @@ type Month =
     | November
     | December
 
-type Year = 
-    | BC of int
-    | Year of int
+type Year = int
 
 type Century = string
 
 type Date = 
-    | CenturyDate of Century
-    | YearDate of Year
-    | MonthDate of Month * Year
-    | DayDate of Day * Month * Year
+    | Century of string
+    | Year of Year
+    | Day of Day * Month * Year
  
 type Period =
     | Unknown

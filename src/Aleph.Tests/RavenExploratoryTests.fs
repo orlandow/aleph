@@ -62,7 +62,7 @@ let ``can store people`` () =
     let p = { 
         name = "Borges"
         fullName = "Jorge Luis Borges"
-        lifespan = Dead (DayDate (24, August, Year 1899), DayDate (14, June, Year 1986))
+        lifespan = Dead (Day (24, August, 1899), Day (14, June, 1986))
         country = { name = "Argentina"; continent = America }
         profession = "Writer"
     }
