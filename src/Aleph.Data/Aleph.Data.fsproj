@@ -55,6 +55,7 @@
     <Compile Include="Converters\SetConverter.fs" />
     <Compile Include="Converters\MapConverter.fs" />
     <Compile Include="Converters\UnionConverter.fs" />
+    <Compile Include="FJsonConverters.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

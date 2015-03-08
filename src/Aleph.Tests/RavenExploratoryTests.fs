@@ -3,18 +3,12 @@
 open NUnit.Framework
 open Raven.Client.Embedded
 open Geography
-open System
-open Aleph.Data.Converters
 open People
+open Raven.Abstractions.FileSystem
+open System.IO
 
 let store = new EmbeddableDocumentStore(RunInMemory = true)
-store.Conventions.CustomizeJsonSerializer <-
-    fun x ->
-        x.Converters.Add(new OptionConverter())
-        x.Converters.Add(new ListConverter())
-        x.Converters.Add(new SetConverter())
-        x.Converters.Add(new MapConverter())
-        x.Converters.Add(new UnionConverter())
+store.Conventions.CustomizeJsonSerializer <- FJsonConverters.converters
 store.Initialize() |> ignore
 
 let stores (obj:'a) =
