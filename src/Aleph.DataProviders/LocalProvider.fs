@@ -45,8 +45,10 @@ module LocalProvider =
         let profession = input |> get "profession"
         let fullname = basic |> get "full name"
 
+        let id = { name = "local"; icon = None }
         async {
             return {
+                id = id
                 name = name
                 fullname = fullname
                 profession = profession

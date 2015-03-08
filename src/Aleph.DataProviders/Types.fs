@@ -4,7 +4,10 @@ open People
 
 type Image = byte[]
 
+type SuggestionId = { name: string; icon: Image option }
+
 type Suggestions = {
+    id: SuggestionId
     name: string option
     fullname: string option
     lifespan: Lifespan option
@@ -14,8 +17,10 @@ type Suggestions = {
     raw: string option
 }
 with 
-    static member Nothing = 
-        { name = None
+    static member Nothing id = 
+        { 
+          id = id
+          name = None
           fullname = None
           lifespan = None
           profession = None

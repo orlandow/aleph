@@ -32,6 +32,8 @@ module private BingApi =
         client.DownloadData(url)
 
 module BingImageProvider =
+
+    let id = { name = "bing"; icon = None }
     
     let suggest str = async {
         let! content = str |> BingApi.get 
@@ -41,4 +43,4 @@ module BingImageProvider =
             |> Seq.map BingApi.getImg
             |> Seq.toList
 
-        return { Suggestions.Nothing with images = Some imgs }}
+        return { Suggestions.Nothing id with images = Some imgs }}
