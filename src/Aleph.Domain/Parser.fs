@@ -30,7 +30,7 @@ let (|Year|_|) = Regex.matches Regex.year (fun m -> Int32.Parse(m.[0].Value))
 let (|DateTime|_|) str = DateTime.parse str
 
 type Date with 
-    static member Parse str = 
+    static member parse str = 
         match str with
         | Year year -> Year year
         | YearBC year -> Year (-year)

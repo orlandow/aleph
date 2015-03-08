@@ -4,7 +4,7 @@ open NUnit.Framework
 open Parser
 
 let parses date str =
-    let result = Date.Parse str
+    let result = Date.parse str
     Assert.AreEqual(date, result, sprintf "expecting %A but was %A" date result)
 
 [<Test>]
