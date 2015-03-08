@@ -49,8 +49,9 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="RavenExploratoryTests.fs" />
+    <Compile Include="MiscTests.fs" />
     <Content Include="packages.config" />
+    <Compile Include="RavenExploratoryTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -87,6 +88,11 @@
     <ProjectReference Include="..\Aleph.Domain\Aleph.Domain.fsproj">
       <Name>Aleph.Domain</Name>
       <Project>{999c9b78-a71c-47e8-8dc0-933712ad103d}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Misc\Misc.fsproj">
+      <Name>Misc</Name>
+      <Project>{2a2f3b5f-dff0-4ee3-8438-551b732c12e8}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
