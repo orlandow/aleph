@@ -50,7 +50,7 @@ module LocalProvider =
             return date |> Date.parse }
 
         let name = input |> get "name"
-        let profession = input |> get "profession"
+        let profession = input |> get "profession" |> Option.map (Profession)
         let fullname = basic |> get "full name"
         let birth = basic |> getDate "date of birth"
         let death = basic |> getDate "date of death"
