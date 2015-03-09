@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Reflection.fs" />
     <Compile Include="Maybe.fs" />
+    <Compile Include="Result.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
