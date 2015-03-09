@@ -23,6 +23,9 @@ module private Json =
 
 
 module LocalProvider =
+    open Parser
+    open System.Text.RegularExpressions
+    open People
 
     let data = 
         IO.files
@@ -40,10 +43,22 @@ module LocalProvider =
         let basic = data |> Map.tryFind "Basic information" 
 
         let get str = Option.bind (Json.fromJ str)
+        let getDate str data = maybe {
+            let! value = data |> get str
+            let re = new Regex(@"\~*\s*(.*)(\s\(.+\))*")
+            let date = re.Match(value).Groups.[1].Value
+            return date |> Date.parse }
 
         let name = input |> get "name"
         let profession = input |> get "profession"
         let fullname = basic |> get "full name"
+        let birth = basic |> getDate "date of birth"
+        let death = basic |> getDate "date of death"
+        let lifespan = 
+            match birth, death with 
+            | Some b, Some d -> Some <| Dead (b, d)
+            | Some b, None -> Some <| Alive b
+            | _ -> None
 
         let id = { name = "local"; icon = None }
         async {
@@ -52,7 +67,7 @@ module LocalProvider =
                 name = name
                 fullname = fullname
                 profession = profession
-                lifespan = None
+                lifespan = lifespan
                 images = None
                 raw = None
             }

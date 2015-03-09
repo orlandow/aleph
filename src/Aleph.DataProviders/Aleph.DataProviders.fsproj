@@ -56,6 +56,11 @@
     <Compile Include="Providers.fs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Misc\Misc.fsproj">
+      <Name>Misc</Name>
+      <Project>{2a2f3b5f-dff0-4ee3-8438-551b732c12e8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
