@@ -45,8 +45,8 @@ module LocalProvider =
         let get str = Option.bind (Json.fromJ str)
         let getDate str data = maybe {
             let! value = data |> get str
-            let re = new Regex(@"\~*\s*(.*)(\s\(.+\))*")
-            let date = re.Match(value).Groups.[1].Value
+            let re = new Regex(@"\~*\s*(?<date>.*)(\s+\(.+\))+?")
+            let date = re.Match(value).Groups.["date"].Value
             return date |> Date.parse }
 
         let name = input |> get "name"
