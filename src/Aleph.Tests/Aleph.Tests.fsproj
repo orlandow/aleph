@@ -51,8 +51,9 @@
   <ItemGroup>
     <Compile Include="MiscTests.fs" />
     <Compile Include="RavenExploratoryTests.fs" />
-    <Compile Include="DateParsingTests.fs" />
+    <Compile Include="SuggestTests.fs" />
     <Content Include="packages.config" />
+    <Compile Include="DateParsingTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -81,6 +82,11 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Aleph.DataProviders\Aleph.DataProviders.fsproj">
+      <Name>Aleph.DataProviders</Name>
+      <Project>{2ee100f6-e5b8-490a-b797-d383784f6057}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Aleph.Data\Aleph.Data.fsproj">
       <Name>Aleph.Data</Name>
       <Project>{eceabedc-485c-46b1-868e-568460c31f03}</Project>
