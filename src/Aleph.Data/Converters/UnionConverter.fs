@@ -9,6 +9,9 @@ open Raven.Imports.Newtonsoft.Json.Linq
 type UnionConverter() =
     inherit JsonConverter()
 
+    let [<Literal>] CaseTagName = "Case"
+    let [<Literal>] FieldsTagName = "Fields"
+
     override x.CanConvert(t) = 
         not(typeof<IEnumerable>.IsAssignableFrom(t)) && FSharpType.IsUnion(t)
 
@@ -17,11 +20,11 @@ type UnionConverter() =
         let case, fields = FSharpValue.GetUnionFields(value, t)
 
         writer.WriteStartObject()
-        writer.WritePropertyName("Case")
+        writer.WritePropertyName(CaseTagName)
         writer.WriteValue(case.Name)
 
         if fields |> Array.length > 0 then
-            writer.WritePropertyName("Fields")
+            writer.WritePropertyName(FieldsTagName)
             serializer.Serialize(writer, fields)
 
         writer.WriteEndObject()
@@ -33,12 +36,12 @@ type UnionConverter() =
 
         let (|Case|Fields|Other|) (name, value:JToken) =
             match name, value.Type with
-            | "Case", JTokenType.String ->
+            | CaseTagName, JTokenType.String ->
                 FSharpType.GetUnionCases(t)
                 |> Array.tryFind (fun c -> c.Name = value.ToString())
                 |> Option.map (fun c -> Case c)
                 |> defaultArg <| Other
-            | "Fields", JTokenType.Array -> Fields (value :?> JArray)
+            | FieldsTagName, JTokenType.Array -> Fields (value :?> JArray)
             | _ -> Other
 
         consume() // start object
