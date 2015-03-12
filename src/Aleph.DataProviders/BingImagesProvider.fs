@@ -4,6 +4,7 @@ module private BingApi =
     open System.Net
     open System.Net.Http
     open Newtonsoft.Json
+    open System
 
     let api = "1Op/dRVrnhPR1HuVXYPxeD/1n8jUqNqoW+BGAbjjFro"
 
@@ -27,9 +28,10 @@ module private BingApi =
         |> fun x -> x.d.results 
         |> Array.map (fun r -> r.Thumbnail.MediaUrl)
 
-    let getImg (url:string) =
+    let getImg uri =
+        let url = new Uri(uri)
         use client = new WebClient()
-        client.DownloadData(url)
+        Async.AwaitTask <| client.DownloadDataTaskAsync(url)
 
 module BingImageProvider =
 
@@ -37,10 +39,10 @@ module BingImageProvider =
     
     let suggest str = async {
         let! content = str |> BingApi.get 
-        let imgs = 
+        let! imgs = 
             content 
             |> BingApi.parse 
             |> Seq.map BingApi.getImg
-            |> Seq.toList
+            |> Async.Parallel
 
-        return { Suggestions.Nothing id with images = Some imgs }}
+        return { Suggestions.Nothing id with images = Some (imgs |> Array.toList) }}
