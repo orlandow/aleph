@@ -52,8 +52,8 @@
     <Compile Include="MiscTests.fs" />
     <Compile Include="RavenExploratoryTests.fs" />
     <Compile Include="SuggestTests.fs" />
-    <Content Include="packages.config" />
     <Compile Include="DateParsingTests.fs" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

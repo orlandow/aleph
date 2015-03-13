@@ -18,8 +18,7 @@ type Suggestions = {
 }
 with 
     static member Nothing id = 
-        { 
-          id = id
+        { id = id
           name = None
           fullname = None
           lifespan = None
