@@ -1,0 +1,10 @@
+@model IEnumerable<Aleph.Views.Card>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <h3>@item.title</h3>
+        </li>
+    }
+</ul>
