@@ -11,5 +11,6 @@ type HomeController() =
     inherit Controller()
     
     member this.Index () = 
+        Countries.insert()
         this.View(Countries.all)
 
