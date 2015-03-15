@@ -5,11 +5,11 @@ open System.Collections.Generic
 open System.Linq
 open System.Web
 open System.Web.Mvc
-open Aleph.Views.Countries
+open Aleph.Web.Models
 
 type HomeController() =
     inherit Controller()
     
     member this.Index () = 
-        this.View(all)
+        this.View(Countries.all)
 

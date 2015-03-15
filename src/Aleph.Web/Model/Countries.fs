@@ -1,4 +1,4 @@
-﻿namespace Aleph.Models
+﻿namespace Aleph.Web.Models
 
 [<RequireQualifiedAccess>]
 module Countries =

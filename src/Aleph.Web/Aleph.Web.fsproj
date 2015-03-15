@@ -107,6 +107,9 @@
   </Target>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Model\Store.fs" />
+    <Compile Include="Model\Card.fs" />
+    <Compile Include="Model\Countries.fs" />
     <Compile Include="Controllers\HomeController.fs" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -119,15 +122,26 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Content Include="packages.config" />
-    <Compile Include="Model\Card.fs" />
-    <Compile Include="Model\Countries.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Web.Infrastructure">
       <HintPath>$(SolutionDir)\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\packages\RavenDB.Database.3.0.3599\lib\net45\Raven.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\packages\RavenDB.Client.3.0.3599\lib\net45\Raven.Client.Lightweight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Raven.Database">
+      <HintPath>..\packages\RavenDB.Database.3.0.3599\lib\net45\Raven.Database.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices.dll" />
     <Reference Include="System.Web.Helpers">
@@ -163,5 +177,27 @@
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Xml.Linq.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aleph.DataProviders\Aleph.DataProviders.fsproj">
+      <Name>Aleph.DataProviders</Name>
+      <Project>{2ee100f6-e5b8-490a-b797-d383784f6057}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Aleph.Data\Aleph.Data.fsproj">
+      <Name>Aleph.Data</Name>
+      <Project>{eceabedc-485c-46b1-868e-568460c31f03}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Aleph.Domain\Aleph.Domain.fsproj">
+      <Name>Aleph.Domain</Name>
+      <Project>{999c9b78-a71c-47e8-8dc0-933712ad103d}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Misc\Misc.fsproj">
+      <Name>Misc</Name>
+      <Project>{2a2f3b5f-dff0-4ee3-8438-551b732c12e8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
 </Project>
