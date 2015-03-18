@@ -1,10 +1,13 @@
 @model IEnumerable<Aleph.Web.Models.Card>
+@{
+    ViewBag.Title = "Hello";
+}
 
-<ul>
-    @foreach (var item in Model)
-    {
-        <li>
-            <h3>@item.title</h3>
-        </li>
-    }
-</ul>
+<div style="width:500px;">
+    <ul class="list-group">
+        @foreach (var item in Model)
+        {
+            @:@Html.Partial("_Card", item)
+        }
+    </ul>
+</div>

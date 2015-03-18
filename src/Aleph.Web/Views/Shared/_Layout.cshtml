@@ -3,9 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link href="~/Assets/bootstrap.css" rel="stylesheet" />
+    <link href="~/Assets/fonts.css" rel="stylesheet" />
+    <link href="~/Assets/styles.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
 </head>
-<body>
+<body class="container">
+    <header class="page-header">
+        <h2>@ViewBag.Title</h2>
+    </header>
     @RenderBody()
 </body>
 </html>

@@ -1,0 +1,6 @@
+﻿
+@font-face {
+    font-family: 'Open Sans';
+    src: url('/assets/fonts/OpenSans-Regular-webfont.eot');
+    src: local('☺'), url('/assets/fonts/OpenSans-Regular-webfont.woff') format('woff'), url('/assets/fonts/OpenSans-Regular-webfont.ttf') format('truetype');
+}

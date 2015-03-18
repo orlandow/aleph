@@ -9,8 +9,14 @@ open Aleph.Web.Models
 
 type HomeController() =
     inherit Controller()
+
+    let card () =
+        { title = "This is the title"
+          desc = Some "this is some long text for description" 
+          data = [(Clock, "hello world"); (Clock, "something else")]
+          image = None }
     
     member this.Index () = 
-        Countries.insert()
-        this.View(Countries.all)
+        let cards = [ card(); card() ]
+        this.View(cards)
 
