@@ -1,14 +1,23 @@
 @model Aleph.Web.Models.Card
 
+@functions {
+    string Opt(Microsoft.FSharp.Core.FSharpOption<string> opt)
+    {
+        return (Microsoft.FSharp.Core.FSharpOption<string>.get_IsSome(opt))
+            ? opt.Value
+            : null;
+    }
+}
+
 <li class="list-group-item">
     <div class="row">
         <div class="col-md-3">
             <img src="~/assets/imgs/nothing.png" width="80%" />
         </div>
         <div class="col-md-9">
-            <code class="pull-right">123</code>
+            <code class="pull-right">@Opt(Model.code)</code>
             <h4 class="list-group-item-heading">@Model.title</h4>
-            <p class="text-muted">Amet, consectetur adipiscing elit.</p>
+            <p class="text-muted">@Opt(Model.desc)</p>
             <div class="list-inline">
                 @foreach (var data in Model.data)
                 {
@@ -19,7 +28,7 @@
                     @:&nbsp;
                 }
                 <small class="text-muted pull-right">
-                    1986 - 2015
+                    @Opt(Model.aside)
                 </small>
             </div>
         </div>
