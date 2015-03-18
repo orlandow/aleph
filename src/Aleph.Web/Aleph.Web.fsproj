@@ -119,6 +119,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Content Include="packages.config" />
+    <Compile Include="Model\Card.fs" />
+    <Compile Include="Model\Countries.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Web.Infrastructure">
