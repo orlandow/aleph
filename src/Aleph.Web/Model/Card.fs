@@ -7,10 +7,12 @@ type Card = {
     image: Image option
     data: Data list
     desc: string option
+    code: string option
+    aside: string option
 }
 with 
     static member fromTitle str =
-        { title = str; image = None; data = []; desc = None }
+        { title = str; image = None; data = []; desc = None; code = None; aside = None }
 
 and Data = Icon * string
 
