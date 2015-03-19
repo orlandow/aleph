@@ -9,3 +9,5 @@ module Store =
 
     store.Conventions.CustomizeJsonSerializer <- FJsonConverters.converters
     store.Initialize() |> ignore
+
+    let session() = store.OpenSession()
