@@ -107,6 +107,7 @@
   </Target>
   <ItemGroup>
     <Content Include="Assets\imgs\nothing.png" />
+    <Content Include="Assets\imgs\question.jpg" />
     <Content Include="Assets\fonts\OpenSans-Regular-webfont.woff" />
     <Content Include="Assets\fonts\OpenSans-Regular-webfont.eot" />
     <Content Include="Assets\fonts\OpenSans-Regular-webfont.svg" />
