@@ -116,6 +116,7 @@
     <Content Include="Assets\fonts.css" />
     <Content Include="Assets\styles.css" />
     <Compile Include="Model\Store.fs" />
+    <Compile Include="Model\Images.fs" />
     <Compile Include="Model\Card.fs" />
     <Compile Include="Model\Countries.fs" />
     <Compile Include="Controllers\HomeController.fs" />
