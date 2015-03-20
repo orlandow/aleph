@@ -6,23 +6,25 @@ open System.Linq
 open System.Web
 open System.Web.Mvc
 open System.Web.Helpers
-open Aleph.Web.Model
+open Aleph.Web.Models
 
 type ImagesController() =
     inherit Controller()
 
-    member this.question() = this.Server.MapPath("~/assets/imgs/question.jpg")
+    let [<Literal>] questionPath = "~/assets/imgs/question.jpg"
 
-    member this.Get(id, width, height) = 
+    let getImage id =
         async {
             let! result = Images.get id
-            let img = match result with
-                      | Some img -> new WebImage(img)
-                      | None -> new WebImage(this.question())
 
-            img
-                .Resize(width, height)
-                .Crop(1,1)
-                .Write()
-                |> ignore
+            return result |> Option.map (fun s -> new WebImage(s))
         } |> Async.RunSynchronously
+
+    member this.Get(id, width, height) = 
+        let path = this.Server.MapPath(questionPath)
+        let img = getImage id |> defaultArg <| new WebImage(path)
+
+        img.Resize(width, height)
+           .Crop(1,1)
+           .Write() |> ignore
+
