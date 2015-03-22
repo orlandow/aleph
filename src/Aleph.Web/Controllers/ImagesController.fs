@@ -11,7 +11,7 @@ open Aleph.Web.Models
 type ImagesController() =
     inherit Controller()
 
-    let [<Literal>] questionPath = "~/assets/imgs/question.jpg"
+    let [<Literal>] questionPath = "~/assets/imgs/nothing.png"
 
     let getImage id =
         async {

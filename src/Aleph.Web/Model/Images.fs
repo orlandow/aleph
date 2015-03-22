@@ -11,7 +11,7 @@ module Images =
     let get (id:string) = 
         use session = store.OpenAsyncSession()
         async {
-            let! file = Async.AwaitTask <| session.Query().WhereEquals("id", id).FirstOrDefaultAsync()
+            let! file = Async.AwaitTask <| session.Query().WhereEquals("Id", id).FirstOrDefaultAsync()
             match file with
             | null -> return None
             | file -> 
