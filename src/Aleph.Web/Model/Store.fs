@@ -13,11 +13,13 @@ module Store =
                         RunInMemory = true,
                         EnlistInDistributedTransactions = false)
 
+    let fileSystem = new FilesStore(Url = "http://localhost:8080", DefaultFileSystem = "TestFS")
+
     store.Conventions.CustomizeJsonSerializer <- FJsonConverters.converters
+
+    fileSystem.Initialize(false, false) |> ignore
     store.Initialize() |> ignore
 
     let session() = store.OpenSession()
 
-    let ravenfs() = 
-        let fs = new FilesStore(Url = "http://localhost:8080", DefaultFileSystem = "TestFS")
-        fs.Initialize(false, false)
+    let fs() = fileSystem.OpenAsyncSession()

@@ -11,7 +11,7 @@ open Aleph.Web.Models
 type ImagesController() =
     inherit Controller()
 
-    let [<Literal>] questionPath = "~/assets/imgs/nothing.png"
+    let [<Literal>] nothing = "~/assets/imgs/nothing.png"
 
     let getImage id =
         async {
@@ -20,9 +20,9 @@ type ImagesController() =
             return result |> Option.map (fun s -> new WebImage(s))
         } |> Async.RunSynchronously
 
-    member this.Get(id, width, height) = 
-        let path = this.Server.MapPath(questionPath)
-        let img = getImage id |> defaultArg <| new WebImage(path)
+    member this.Get(identifier, width, height) = 
+        let path = this.Server.MapPath(nothing)
+        let img = getImage identifier |> defaultArg <| new WebImage(path)
 
         img.Resize(width, height)
            .Crop(1,1)

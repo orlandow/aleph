@@ -7,12 +7,19 @@
             ? opt.Value
             : null;
     }
+
+    string Image(Microsoft.FSharp.Core.FSharpOption<string> opt)
+    {
+        return (Microsoft.FSharp.Core.FSharpOption<string>.get_IsSome(opt))
+            ? opt.Value
+            : "nothing";
+    }
 }
 
 <li class="list-group-item">
     <div class="row">
         <div class="col-md-2" style="padding-left:8px">
-            <img src="@Url.Action("Get", "Images", new { width= 80, height = 80, id = "nothing" })" />
+            <img src="@Url.Action("Get", "Images", new { width= 80, height = 80, identifier = Image(Model.image) })" />
         </div>
         <div class="col-md-10">
             <code class="pull-right">@Opt(Model.code)</code>
