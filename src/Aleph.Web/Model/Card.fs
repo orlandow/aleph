@@ -1,10 +1,10 @@
 ﻿namespace Aleph.Web.Models
 
-type Image = byte[]
+type ImageId = string
 
 type Card = {
     title: string
-    image: Image option
+    image: ImageId option
     data: Data list
     desc: string option
     code: string option

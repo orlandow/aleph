@@ -16,7 +16,7 @@ module Store =
     store.Conventions.CustomizeJsonSerializer <- FJsonConverters.converters
     store.Initialize() |> ignore
 
-    let session() = store.OpenSession("HelloWorld")
+    let session() = store.OpenSession()
 
     let ravenfs() = 
         let fs = new FilesStore(Url = "http://localhost:8080", DefaultFileSystem = "TestFS")
