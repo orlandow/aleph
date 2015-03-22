@@ -11,10 +11,10 @@
 
 <li class="list-group-item">
     <div class="row">
-        <div class="col-md-3">
-            <img src="~/assets/imgs/question.jpg" width="70%"/>
+        <div class="col-md-2" style="padding-left:8px">
+            <img src="@Url.Action("Get", "Images", new { width= 80, height = 80, id = "nothing" })" />
         </div>
-        <div class="col-md-9">
+        <div class="col-md-10">
             <code class="pull-right">@Opt(Model.code)</code>
             <h4 class="list-group-item-heading">@Model.title</h4>
             <p class="text-muted">@Opt(Model.desc)</p>
