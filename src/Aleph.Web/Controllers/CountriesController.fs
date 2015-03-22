@@ -24,9 +24,9 @@ type CountriesController() =
         this.View(cards)
 
     [<HttpPost>]
-    member this.Create (name, flag:HttpPostedFileBase) =
+    member this.Create (name, continent, flag:HttpPostedFileBase) =
         use session = Store.session()
-        let c = { name = name; continent = America }
+        let c = { name = name; continent = continent |> Reflection.toDU<Continent>  }
         session.Store(c)
         session.SaveChanges()
 

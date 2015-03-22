@@ -16,7 +16,7 @@ module Images =
             | file -> 
                 let! stream = Async.AwaitTask <| session.DownloadAsync(file.FullPath)
                 return Some stream
-        } 
+        }
 
     let save (id:string) (stream:Stream) = 
         use session = Store.fs()
