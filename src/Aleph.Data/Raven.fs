@@ -39,6 +39,6 @@ module Server =
                         DefaultFileSystem = "Aleph")
 
         store.Initialize() |> ignore
-        fs.Initialize() |> ignore
+        fs.Initialize(false) |> ignore
 
         Raven.fromRaven (store, fs)
