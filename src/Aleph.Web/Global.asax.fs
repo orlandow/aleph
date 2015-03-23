@@ -27,3 +27,11 @@ type Global() =
         AreaRegistration.RegisterAllAreas()
         Global.RegisterFilters(GlobalFilters.Filters)
         Global.RegisterRoutes(RouteTable.Routes)
+        DependencyResolver.SetResolver
+            { new IDependencyResolver with
+                member x.GetService ty =
+                    if ty = typeof<IControllerActivator> 
+                        then new CompositionRoot() :> _
+                    else null
+                 
+                member x.GetServices _ = Seq.empty }
