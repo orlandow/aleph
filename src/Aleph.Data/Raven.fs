@@ -10,8 +10,8 @@ type Raven = {
 }
 with 
     static member fromRaven (store:IDocumentStore, fs:IFilesStore) =
-        store.Initialize() |> ignore
-        fs.Initialize() |> ignore
+        store.Conventions.CustomizeJsonSerializer <- FJsonConverters.converters
+
         { session = store.OpenSession 
           fs = fs.OpenAsyncSession }
 
@@ -22,7 +22,10 @@ module Server =
         let store = new EmbeddableDocumentStore(
                             RunInMemory = true,
                             EnlistInDistributedTransactions = false)
+        store.Initialize() |> ignore
+        
         let fs = store.FilesStore
+        fs.Initialize() |> ignore
 
         Raven.fromRaven (store, fs)
 
@@ -34,5 +37,8 @@ module Server =
         let fs = new FilesStore(
                         Url = url,
                         DefaultFileSystem = "Aleph")
+
+        store.Initialize() |> ignore
+        fs.Initialize() |> ignore
 
         Raven.fromRaven (store, fs)
