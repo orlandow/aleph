@@ -56,6 +56,7 @@
     <Compile Include="Converters\MapConverter.fs" />
     <Compile Include="Converters\UnionConverter.fs" />
     <Compile Include="FJsonConverters.fs" />
+    <Compile Include="Raven.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -63,11 +64,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Raven.Abstractions">
-      <HintPath>..\packages\RavenDB.Client.3.0.3599\lib\net45\Raven.Abstractions.dll</HintPath>
+      <HintPath>..\packages\RavenDB.Database.3.0.3599\lib\net45\Raven.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Raven.Client.Lightweight">
       <HintPath>..\packages\RavenDB.Client.3.0.3599\lib\net45\Raven.Client.Lightweight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Raven.Database">
+      <HintPath>..\packages\RavenDB.Database.3.0.3599\lib\net45\Raven.Database.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
