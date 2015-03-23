@@ -6,18 +6,17 @@ open Geography
 open People
 open Raven.Abstractions.FileSystem
 open System.IO
+open Aleph.Data
 
-let store = new EmbeddableDocumentStore(RunInMemory = true)
-store.Conventions.CustomizeJsonSerializer <- FJsonConverters.converters
-store.Initialize() |> ignore
+let raven = Server.memory()
 
 let stores (obj:'a) =
-    use session = store.OpenSession()
+    use session = raven.session()
     session.Store(obj)
     session.SaveChanges()
     let id = session.Advanced.GetDocumentId(obj)
 
-    use session = store.OpenSession()
+    use session = raven.session()
     let loaded = session.Load<'a>(id)
 
     Assert.AreEqual(obj, loaded)
@@ -32,7 +31,7 @@ let ``documents have ids even when there is no id on record`` () =
     let c name = { name = name; continent = America }
     let cs = [1..10] |> List.map (fun i -> c <| sprintf "country%i" i) 
 
-    use session = store.OpenSession()
+    use session = raven.session()
     cs |> Seq.iter (session.Store)
     session.SaveChanges()
 
@@ -46,7 +45,7 @@ let ``can get ids for some documents`` () =
     let a = { name = "A"; continent = America }
     let b = { name = "B"; continent = America }
 
-    use session = store.OpenSession()
+    use session = raven.session()
     session.Store(a)
     session.Store(b)
     session.SaveChanges()
