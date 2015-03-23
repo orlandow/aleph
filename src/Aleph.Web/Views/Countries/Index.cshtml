@@ -3,46 +3,50 @@
     ViewBag.Title = "Countries";
 }
 
-<div class="row form-horizontal">
-    <form class="col-md-5" action="@Url.Action("Create")" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label class="control-label col-md-2" for="name">Name</label>
-            <div class="col-md-10">
-                <input class="form-control" id="name" name="name" type="text" required />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="name">Flag</label>
-            <div class="col-md-10">
-                <input class="form-control" id="flag" name="flag" type="file" required />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="continent">Continent</label>
-            <div class="col-md-10">
-                <select class="form-control" name="continent" required>
-                    <option></option>
-                    <option>America</option>
-                    <option>Europe</option>
-                    <option>Asia</option>
-                    <option>Africa</option>
-                    <option>Australia</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <input class="btn btn-primary" type="submit" />
-        </div>
-    </form>
-</div>
-
 <div class="row">
-    <div style="width:500px;">
-        <ul class="list-group">
-            @foreach (var item in Model)
-            {
-                @:@Html.Partial("_Card", item)
-            }
-        </ul>
+    <div class="col-md-5">
+        <div class="row form-horizontal">
+            <form action="@Url.Action("Create")" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Name</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="name" name="name" type="text" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Flag</label>
+                    <div class="col-md-10">
+                        <input class="form-control" id="flag" name="flag" type="file" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="continent">Continent</label>
+                    <div class="col-md-10">
+                        <select class="form-control" name="continent" required>
+                            <option></option>
+                            <option>America</option>
+                            <option>Europe</option>
+                            <option>Asia</option>
+                            <option>Africa</option>
+                            <option>Australia</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-offset-1 col-md-5">
+        <div class="row">
+            <ul class="list-group">
+                @foreach (var item in Model)
+                {
+                    @:@Html.Partial("_Card", item)
+                }
+            </ul>
+        </div>
     </div>
 </div>
+

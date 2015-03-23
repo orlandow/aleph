@@ -13,7 +13,7 @@ type CountriesController(raven, imager) =
     inherit Controller()
 
     let toCard (c:Country, id:string) = 
-        { Card.fromTitle c.name with image = Some id }
+        { Card.fromTitle c.name with image = Some id; desc = Some <| sprintf "%A" c.continent }
 
     member this.Index () = 
         use session = raven.session()
