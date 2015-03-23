@@ -6,15 +6,17 @@ open System.Linq
 open System.Web
 open System.Web.Mvc
 open Aleph.Web.Models
+open Aleph.Data
+open Images
 
-type CountriesController() =
+type CountriesController(raven, imager) =
     inherit Controller()
 
     let toCard (c:Country, id:string) = 
         { Card.fromTitle c.name with image = Some id }
 
     member this.Index () = 
-        use session = Store.session()
+        use session = raven.session()
         let countries = 
             session.Query<Country>().Take(100)
             |> Seq.map (fun c -> (c, session.Advanced.GetDocumentId c))
@@ -25,14 +27,14 @@ type CountriesController() =
 
     [<HttpPost>]
     member this.Create (name, continent, flag:HttpPostedFileBase) =
-        use session = Store.session()
+        use session = raven.session()
         let c = { name = name; continent = continent |> Reflection.toDU<Continent>  }
         session.Store(c)
         session.SaveChanges()
 
         let id = session.Advanced.GetDocumentId c
 
-        Images.save id flag.InputStream
+        imager.save (id, flag.InputStream) |> Async.RunSynchronously
 
         this.RedirectToAction("Index")
 

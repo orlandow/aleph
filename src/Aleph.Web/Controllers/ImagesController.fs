@@ -7,15 +7,16 @@ open System.Web
 open System.Web.Mvc
 open System.Web.Helpers
 open Aleph.Web.Models
+open Images
 
-type ImagesController() =
+type ImagesController(imager) =
     inherit Controller()
 
     let [<Literal>] nothing = "~/assets/imgs/nothing.png"
 
     let getImage id =
         async {
-            let! result = Images.get id
+            let! result = imager.get id
 
             return result |> Option.map (fun s -> new WebImage(s))
         } |> Async.RunSynchronously
