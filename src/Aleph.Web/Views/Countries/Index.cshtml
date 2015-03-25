@@ -1,6 +1,14 @@
-﻿@model IEnumerable<Aleph.Web.Models.Card>
+﻿@using Microsoft.FSharp.Reflection
+@model IEnumerable<Aleph.Web.Models.Card>
 @{
     ViewBag.Title = "Countries";
+    var continents = FSharpType.GetUnionCases(typeof(Geography.Continent), null)
+        .Select(t => new SelectListItem
+        {
+            Text = t.Name,
+            Value = t.Name,
+            Selected = false
+        });
 }
 
 <div class="row">
@@ -22,14 +30,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2" for="continent">Continent</label>
                     <div class="col-md-10">
-                        <select class="form-control" name="continent" required>
-                            <option></option>
-                            <option>America</option>
-                            <option>Europe</option>
-                            <option>Asia</option>
-                            <option>Africa</option>
-                            <option>Australia</option>
-                        </select>
+                        @Html.DropDownList("continent", continents, "select a continent", new { @class = "form-control", required = "required" })
                     </div>
                 </div>
                 <div class="form-group">
