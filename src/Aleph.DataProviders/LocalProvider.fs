@@ -4,14 +4,26 @@ module private IO =
     open System.IO
 
     let folder = @"d:\development\aleph data"
+    let imgFolder = Path.Combine(folder, "imgs3")
 
     let files = 
         Directory.EnumerateFiles(folder, "*.json")
         |> Seq.map (fun x -> 
             (Path.GetFileNameWithoutExtension x,
-             File.ReadAllText x))
+             lazy File.ReadAllText x))
 
-    let byName str = files |> Seq.tryFind ((=) str)
+    let images =
+        Directory.EnumerateFiles(imgFolder, "*.jpg")
+        |> Seq.map (fun x -> 
+            (Path.GetFileNameWithoutExtension x,
+             lazy (File.Open(x, FileMode.Open) :> Stream)))
+
+    let find str = 
+        Seq.tryFind (fst >> (=) str) 
+        >> Option.map (fun (_,raw) -> raw |> Lazy.get)
+
+    let byName str = files |> find str
+    let img str = images |> find str
 
 module private Json =
     open Newtonsoft.Json
@@ -23,11 +35,9 @@ module private Json =
         | (true, value) -> Some <| value.ToString()
         | _ -> None
 
-
 module LocalProvider =
     open Parser
     open System.Text.RegularExpressions
-    open People
 
     let getText str = Option.bind (Json.fromJ str) >> Option.map Text
     let getDate str data = maybe {
@@ -36,9 +46,15 @@ module LocalProvider =
         let date = re.Match(value).Groups.["date"].Value
         return date |> Date.parse } |> Option.map Date
 
+    let getImg str =
+        maybe {
+            let! img = IO.img str
+            return [img]
+        }
+
     let suggest str =
         let data = maybe {
-            let! (_,raw) = IO.byName str
+            let! raw = IO.byName str
             let data = Json.jsonToMap raw
 
             let input = data |> Map.tryFind "Input interpretation" 
@@ -64,12 +80,13 @@ module LocalProvider =
             return data } |> defaultArg <| Map.empty
 
         let id = { name = "local"; icon = None }
+        let img = getImg str
 
         async {
             return {
                 id = id
                 data = data
-                images = None
+                images = img
                 raw = None
             }
         }

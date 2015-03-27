@@ -5,6 +5,7 @@ module private BingApi =
     open System.Net.Http
     open Newtonsoft.Json
     open System
+    open System.IO
 
     let api = "1Op/dRVrnhPR1HuVXYPxeD/1n8jUqNqoW+BGAbjjFro"
 
@@ -31,7 +32,10 @@ module private BingApi =
     let getImg uri =
         let url = new Uri(uri)
         use client = new WebClient()
-        Async.AwaitTask <| client.DownloadDataTaskAsync(url)
+        async {
+            let! data = client.DownloadDataTaskAsync(url) |> Async.AwaitTask 
+            return new MemoryStream(data) :> Stream
+        }
 
 module BingImageProvider =
 

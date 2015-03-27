@@ -1,6 +1,8 @@
 ﻿namespace DataProviders
 
-type Image = byte[]
+open System.IO
+
+type Image = Stream
 
 type SuggestionId = { name: string; icon: Image option }
 
