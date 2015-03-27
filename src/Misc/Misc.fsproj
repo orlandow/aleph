@@ -47,6 +47,7 @@
     <Compile Include="Result.fs" />
     <Compile Include="Async.fs" />
     <Compile Include="Map.fs" />
+    <Compile Include="Lazy.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
