@@ -42,32 +42,35 @@ module LocalProvider =
         let input = data |> Map.tryFind "Input interpretation" 
         let basic = data |> Map.tryFind "Basic information" 
 
-        let get str = Option.bind (Json.fromJ str)
+        let getText str = Option.bind (Json.fromJ str) >> Option.map Text
         let getDate str data = maybe {
-            let! value = data |> get str
+            let! value = data |> Option.bind (Json.fromJ str)
             let re = new Regex(@"\~*\s*(?<date>.*)(\s+\(.+\))+?")
             let date = re.Match(value).Groups.["date"].Value
-            return date |> Date.parse }
+            return date |> Date.parse } |> Option.map Date
 
-        let name = input |> get "name"
-        let profession = input |> get "profession" |> Option.map (Profession)
-        let fullname = basic |> get "full name"
-        let birth = basic |> getDate "date of birth"
+        let name = input |> getText "name"
+        let profession = input |> getText "profession" 
+        let fullname = basic |> getText "full name" 
+        let birth = basic |> getDate "date of birth" 
         let death = basic |> getDate "date of death"
-        let lifespan = 
-            match birth, death with 
-            | Some b, Some d -> Some <| Dead (b, d)
-            | Some b, None -> Some <| Alive b
-            | _ -> None
+
+        let data = [ yield "name", name
+                     yield "profession", profession
+                     yield "fullname", fullname
+                     yield "birth", birth
+                     yield "death", death ] 
+                   |> Map.ofList
+                   |> Map.choose (
+                        function
+                        | name, Some data -> Some (name, data)
+                        | _ -> None)
 
         let id = { name = "local"; icon = None }
         async {
             return {
                 id = id
-                name = name
-                fullname = fullname
-                profession = profession
-                lifespan = lifespan
+                data = data
                 images = None
                 raw = None
             }

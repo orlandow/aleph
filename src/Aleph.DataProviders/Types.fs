@@ -4,9 +4,13 @@ type Image = byte[]
 
 type SuggestionId = { name: string; icon: Image option }
 
+type Data =
+    | Text of string
+    | Date of Date
+
 type Suggestions = {
     id: SuggestionId
-    data: Map<string, obj>
+    data: Map<string, Data>
     images: Image list option
 
     raw: string option
