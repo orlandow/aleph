@@ -1,17 +1,12 @@
 ﻿namespace DataProviders
 
-open People
-
 type Image = byte[]
 
 type SuggestionId = { name: string; icon: Image option }
 
 type Suggestions = {
     id: SuggestionId
-    name: string option
-    fullname: string option
-    lifespan: Lifespan option
-    profession: Profession option
+    data: Map<string, obj>
     images: Image list option
 
     raw: string option
@@ -19,10 +14,7 @@ type Suggestions = {
 with 
     static member Nothing id = 
         { id = id
-          name = None
-          fullname = None
-          lifespan = None
-          profession = None
+          data = Map.empty
           images = None
           raw = None }
 
