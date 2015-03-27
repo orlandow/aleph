@@ -11,6 +11,8 @@ module private IO =
             (Path.GetFileNameWithoutExtension x,
              File.ReadAllText x))
 
+    let byName str = files |> Seq.tryFind ((=) str)
+
 module private Json =
     open Newtonsoft.Json
     open Newtonsoft.Json.Linq
@@ -27,46 +29,42 @@ module LocalProvider =
     open System.Text.RegularExpressions
     open People
 
-    let data = 
-        IO.files
-        |> Seq.map (fun (name,value) -> (name, Json.jsonToMap value))
-
-    let byName str =
-        data 
-        |> Seq.find (fst >> ((=) str))
-        |> snd
+    let getText str = Option.bind (Json.fromJ str) >> Option.map Text
+    let getDate str data = maybe {
+        let! value = data |> Option.bind (Json.fromJ str)
+        let re = new Regex(@"\~*\s*(?<date>.*)(\s+\(.+\))+?")
+        let date = re.Match(value).Groups.["date"].Value
+        return date |> Date.parse } |> Option.map Date
 
     let suggest str =
-        let data = byName str
+        let data = maybe {
+            let! (_,raw) = IO.byName str
+            let data = Json.jsonToMap raw
 
-        let input = data |> Map.tryFind "Input interpretation" 
-        let basic = data |> Map.tryFind "Basic information" 
+            let input = data |> Map.tryFind "Input interpretation" 
+            let basic = data |> Map.tryFind "Basic information" 
 
-        let getText str = Option.bind (Json.fromJ str) >> Option.map Text
-        let getDate str data = maybe {
-            let! value = data |> Option.bind (Json.fromJ str)
-            let re = new Regex(@"\~*\s*(?<date>.*)(\s+\(.+\))+?")
-            let date = re.Match(value).Groups.["date"].Value
-            return date |> Date.parse } |> Option.map Date
+            let name = input |> getText "name"
+            let profession = input |> getText "profession" 
+            let fullname = basic |> getText "full name" 
+            let birth = basic |> getDate "date of birth" 
+            let death = basic |> getDate "date of death"
 
-        let name = input |> getText "name"
-        let profession = input |> getText "profession" 
-        let fullname = basic |> getText "full name" 
-        let birth = basic |> getDate "date of birth" 
-        let death = basic |> getDate "date of death"
+            let data = [ yield "name", name
+                         yield "profession", profession
+                         yield "fullname", fullname
+                         yield "birth", birth
+                         yield "death", death ] 
+                       |> Map.ofList
+                       |> Map.choose (
+                            function
+                            | name, Some data -> Some (name, data)
+                            | _ -> None)
 
-        let data = [ yield "name", name
-                     yield "profession", profession
-                     yield "fullname", fullname
-                     yield "birth", birth
-                     yield "death", death ] 
-                   |> Map.ofList
-                   |> Map.choose (
-                        function
-                        | name, Some data -> Some (name, data)
-                        | _ -> None)
+            return data } |> defaultArg <| Map.empty
 
         let id = { name = "local"; icon = None }
+
         async {
             return {
                 id = id
